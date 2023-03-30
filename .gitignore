@@ -3,4 +3,7 @@ venv/
 __pycache__/
 output/
 .vscode/
+
 *.pcap
+*.cap
+*.pcapng
