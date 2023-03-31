@@ -1,9 +1,14 @@
+# for python code
 venv/
 *.pyc
 __pycache__/
 output/
 .vscode/
 
+# for export file
+*.csv
+
+# pcap file
 *.pcap
 *.cap
 *.pcapng

@@ -189,15 +189,28 @@ def main():
 
             if GLOBAL.MINT_EXPORT_TO_REPORT:
                 dummy = PacketModifyReport()
-                col = list(dummy.__dict__.keys())[:-2]
+                field_values = dummy.__dict__
+                del field_values['_generated_idx']
+                del field_values["filepath"]
+                del field_values["origin_packet_list"]
+                del field_values["modified_packet_list"]
+
+                col = field_values.keys()
+
                 df = pd.DataFrame(columns=col)
 
                 for report in packet_report:
-                    df.loc[-1] = list(report.__dict__.values())[:-2]
+                    v = report.__dict__
+                    del v['_generated_idx']
+                    del v["filepath"]
+                    del v["origin_packet_list"]
+                    del v["modified_packet_list"]
+                    df.loc[-1] = v.values()
                     df.index = df.index + 1
                     df = df.sort_index()
+                    
                 df.to_csv("./report.csv")
-                print("*== Export to CSV file! [report.csv]")
+                mint_print("*== Export to CSV file! [report.csv]")
 
 
     if GLOBAL.MINT_ENABLED_REPLAY_MODE:
